@@ -54,10 +54,12 @@ function A_123190079_ResponsiSCPK_OpeningFcn(hObject, eventdata, handles, vararg
 
 % Choose default command line output for A_123190079_ResponsiSCPK
 handles.output = hObject;
-opts = detectImportOptions('DATA RUMAH.xlsx');
-opts.SelectedVariableNames = [1,3,4,5,6,7,8];
 
-data = readmatrix('DATA RUMAH.xlsx',opts);
+data = xlsread('DATA RUMAH.xlsx','A2:A21'); %mengambil data nomor dri excel
+data2 = xlsread('DATA RUMAH.xlsx','C2:H21'); %mengambil data selain nama rumah dan nomor di excel
+
+data = [data data2]; %menggabungkan keduanya
+data = num2cell(data); %mengubah dari array ke cell untuk ditampilkan di tabel
 
 set(handles.uitable1,'Data',data);
 % Update handles structure
@@ -90,10 +92,7 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-opts = detectImportOptions('DATA RUMAH.xlsx'); %mendeteksi file DATA RUMAH.xlsx
-opts.SelectedVariableNames = [3,4,5,6,7,8]; %mengambil kolom 3 sampai 8
-
-data = readmatrix('DATA RUMAH.xlsx',opts); %menempatkan data dari excel ke var data
+data = xlsread('DATA RUMAH.xlsx','C2:H21'); %mengambil data dari file excel
 
 %nilai atribut, dimana 0= atribut biaya &1= atribut keuntungan
 k=[0,1,1,1,1,1];
